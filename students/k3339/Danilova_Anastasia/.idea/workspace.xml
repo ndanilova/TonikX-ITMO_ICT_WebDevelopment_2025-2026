@@ -21,6 +21,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ndanilova"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ndanilova/TonikX-ITMO_ICT_WebDevelopment_2025-2026.git",
+    "accountId": "f2e75355-1ab9-46e5-b521-97d9f7bbb1aa"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -28,7 +40,6 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="32mhyKFRCndnjvVWV8EbnJ2nd9l" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -45,8 +56,11 @@
     "Python.server.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/web_5sem/ITMO_ICT_WebDevelopment_2024-2025/students/k3339/Danilova_Anastasia/Lr1/docs/task5"
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/web_5sem/TonikX-ITMO_ICT_WebDevelopment_2025-2026/students/k3339/Danilova_Anastasia"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -186,7 +200,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-c69650fc56ca-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.15619.17" />
+        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
       </set>
     </attachedChunks>
   </component>
