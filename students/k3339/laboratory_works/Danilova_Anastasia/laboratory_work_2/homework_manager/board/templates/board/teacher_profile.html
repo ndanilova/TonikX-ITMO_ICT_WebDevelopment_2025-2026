@@ -139,6 +139,7 @@
 
             </div>
             <div class="tab-pane fade" id="nav-submissions" role="tabpanel" aria-labelledby="nav-submissions-tab">
+                {% if today_submissions_exist %}
                 <table class="table">
                     <thead>
                     <tr>
@@ -153,7 +154,8 @@
                     <tbody>
                     {% for data in today_submissions_data %}
                     <tr>
-                        <td>{{ data.submission.student.user.first_name }} {{ data.submission.student.user.last_name }}</td>
+                        <td>{{ data.submission.student.user.first_name }} {{ data.submission.student.user.last_name }}
+                        </td>
                         <td>{{ data.submission.student.school_class }}</td>
                         <td>{{ data.submission.homework.subject }}</td>
                         <td>{{ data.submission.homework.text|truncatewords:"10" }}</td>
@@ -165,6 +167,9 @@
 
                     </tbody>
                 </table>
+                {% else %}
+                <p>No submissions today yet</p>
+                {% endif %}
             </div>
         </div>
 

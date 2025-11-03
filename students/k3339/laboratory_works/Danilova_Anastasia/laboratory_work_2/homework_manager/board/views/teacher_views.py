@@ -104,9 +104,11 @@ def teacher_profile(request):
                 'submission': submission,
                 'submission_status': submission.student.get_homework_status(submission.homework),
             })
+
+        today_submissions_exist = True if len(today_submissions_data) > 0 else False
+        for group in teacher.get_teaching_classes():
+            groups_with_data.append(get_group_metrics(teacher, group))
         for subject in teacher.subjects.all():
-            for group in subject.get_classes_with_subject():
-                groups_with_data.append(get_group_metrics(teacher, group))
             subject_metrics = get_subject_metrics(teacher, subject)
             subject_data.append({
                 'subject': subject,
@@ -123,6 +125,7 @@ def teacher_profile(request):
         subject_data = []
         today_submissions_data = []
         groups_with_data = []
+        today_submissions_exist = False
 
     context = {
         'user': request.user,
@@ -131,6 +134,7 @@ def teacher_profile(request):
         'groups_with_data': groups_with_data,
         'subject_data': subject_data,
         'today_submissions_data': today_submissions_data,
+        'today_submissions_exist': today_submissions_exist,
     }
     return render(request, 'board/teacher_profile.html', context)
 
