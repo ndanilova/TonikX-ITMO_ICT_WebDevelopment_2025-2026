@@ -59,11 +59,11 @@ class WarriorProfessionListAPIView(generics.ListAPIView):
 
 class WarriorSkillListAPIView(generics.ListAPIView):
     serializer_class = WarriorSkillSerializer
-    queryset = Warrior.objects.all().prefetch_related("skills_info__skill")
+    queryset = Warrior.objects.all().prefetch_related("warrior_skill__skill")
 
 class WarriorDetailAPIView(generics.RetrieveAPIView):
     serializer_class = WarriorFullSerializer
-    queryset = Warrior.objects.all().select_related("profession").prefetch_related("skills_info__skill")
+    queryset = Warrior.objects.all().select_related("profession").prefetch_related("warrior_skill__skill")
     lookup_field = 'id'
 
 class WarriorDestroyAPIView(generics.DestroyAPIView):

@@ -47,22 +47,22 @@ class WarriorProfessionSerializer(serializers.ModelSerializer):
 
 
 class WarriorSkillSerializer(serializers.ModelSerializer):
-    skills_info = SkillOfWarriorSerializer(many=True, read_only=True)
+    warrior_skill = SkillOfWarriorSerializer(many=True, read_only=True)
 
     class Meta:
         model = Warrior
-        fields = ['id', 'name', 'race', 'level', 'skills_info']
+        fields = ['id', 'name', 'race', 'level', 'warrior_skill']
 
 
 class WarriorFullSerializer(serializers.ModelSerializer):
     profession = ProfessionSerializer(read_only=True)
-    skills_info = SkillOfWarriorSerializer(many=True, read_only=True)
+    warrior_skill = SkillOfWarriorSerializer(many=True, read_only=True)
 
 
 
     class Meta:
         model = Warrior
-        fields = ['id', 'name', 'race', 'level', 'profession', 'skills_info']
+        fields = ['id', 'name', 'race', 'level', 'profession', 'warrior_skill']
 
 
 class WarriorSkillInputSerializer(serializers.Serializer):
