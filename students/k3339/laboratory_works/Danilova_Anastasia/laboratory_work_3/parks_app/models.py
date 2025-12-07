@@ -43,12 +43,12 @@ class Object(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     is_serviced = models.BooleanField(default=False)
-    decorators = models.ManyToManyField('Decorator', related_name='objects', blank=True)
+    decorators = models.ManyToManyField('Decorator', related_name='serviced_objects', blank=True)
 
 
 class Contract(models.Model):
-    enterprise = models.OneToOneField(Enterprise, on_delete=models.CASCADE, related_name='contracts')
-    object = models.OneToOneField(Object, on_delete=models.CASCADE, related_name='contracts')
+    enterprise = models.ForeignKey(Enterprise, on_delete=models.CASCADE, related_name='contracts')
+    object = models.ForeignKey(Object, on_delete=models.CASCADE, related_name='contract_objects')
     contract_number = models.CharField(max_length=200)
     contract_date = models.DateField()
     description = models.TextField()
@@ -81,8 +81,8 @@ class Plant(models.Model):
     @property
     def current_age(self):
         first_placement = self.placements.order_by('planted_date').first()
-        today = timezone.now().date()
-        return self.initial_age + (today - first_placement.planted_date).years
+        today = timezone.now().year
+        return self.initial_age + (today - first_placement.planted_date.year)
 
 
 class PlantPlacement(models.Model):
@@ -101,8 +101,8 @@ class Species(models.Model):
     life_form = ForeignKey(LifeForm, on_delete=models.CASCADE, related_name='species')
     possible_planting_period_from = models.DateField()
     possible_planting_period_to = models.DateField()
-    flowering_period_from = models.TimeField()
-    flowering_period_to = models.TimeField()
+    flowering_period_from = models.DateField()
+    flowering_period_to = models.DateField()
     special_characteristics = models.TextField()
 
     @property
@@ -117,8 +117,8 @@ class Species(models.Model):
 class PlantWateringSchedule(models.Model):
     plant = models.ForeignKey('Plant', on_delete=models.CASCADE, related_name='schedule')
     frequency = models.CharField(max_length=200)
-    time_watering_start = models.DateField()
-    time_watering_end = models.DateField()
+    time_watering_start = models.TimeField()
+    time_watering_end = models.TimeField()
     water_norm_liters_winter = models.IntegerField()
     water_norm_liters_summer = models.IntegerField()
     water_norm_liters_fall = models.IntegerField()
@@ -133,27 +133,14 @@ class PlantWateringSchedule(models.Model):
             'fall': (9, 10, 11)
         }
 
-        water_norm_liters = None
         month_now = timezone.now().month
 
         for season, months in seasons.items():
             if month_now in months:
-                water_norm_liters = f"water_norm_liters_{season}"
+                field_name = f"water_norm_liters_{season}"
+                return getattr(self, field_name, 0)  # Возвращаем значение поля
 
-        return water_norm_liters
-
-    @staticmethod
-    def get_season(month=None):
-        seasons = {
-            'winter': (12, 1, 2),
-            'spring': (3, 4, 5),
-            'summer': (6, 7, 8),
-            'autumn': (9, 10, 11)
-        }
-        for season, months in seasons.items():
-            if month in months:
-                return season
-        return None
+        return 0
 
     @property
     def watering_time_period(self):

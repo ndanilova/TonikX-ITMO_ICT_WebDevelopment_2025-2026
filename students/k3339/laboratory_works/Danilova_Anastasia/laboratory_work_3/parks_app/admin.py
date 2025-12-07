@@ -52,7 +52,7 @@ class ObjectZoneAdmin(admin.ModelAdmin):
 @admin.register(Plant)
 class PlantAdmin(admin.ModelAdmin):
     list_display = ("id", "initial_age", "get_species_name", "get_life_form", "current_age")
-    list_filter = ("species__life_form", "species")
+    list_filter = ("species__life_form", "species", "initial_age")
     search_fields = ("species__name", "description", "species__life_form__name")
 
     def get_species_name(self, obj):
@@ -100,7 +100,6 @@ class PlantWateringScheduleAdmin(admin.ModelAdmin):
 @admin.register(Worker)
 class WorkerAdmin(admin.ModelAdmin):
     list_display = ("id", "short_name", "phone_number", "address")
-    list_filter = ("address",)
     search_fields = ("phone_number", "address", "first_name", "last_name",)
 
     def get_full_name(self, obj):
