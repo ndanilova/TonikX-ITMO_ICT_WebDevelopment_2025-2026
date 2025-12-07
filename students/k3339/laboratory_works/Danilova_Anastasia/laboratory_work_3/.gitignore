@@ -331,7 +331,7 @@ screenshot*
 # Python скрипты для генерации данных (если они создают файлы)
 generate_data.py
 seed.py
-populate_db.py
+scripts/populate_db.py
 
 # Файлы конфигурации IDE
 .vscode/settings.json
