@@ -24,7 +24,7 @@ class PersonAbstract(models.Model):
     @property
     def short_name(self):
         first = f"{self.first_name[0].upper()}."
-        middle = f"{self.middle_name[0].upper()}." if not self.middle_name else ""
+        middle = f"{self.middle_name[0].upper()}." if self.middle_name else ""
         return f"{first}{middle} {self.last_name}".strip()
 
 
@@ -43,12 +43,12 @@ class Object(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     is_serviced = models.BooleanField(default=False)
-    decorators = models.ManyToManyField('Decorator', related_name='objects', blank=True, null=True)
+    decorators = models.ManyToManyField('Decorator', related_name='objects', blank=True)
 
 
 class Contract(models.Model):
     enterprise = models.OneToOneField(Enterprise, on_delete=models.CASCADE, related_name='contracts')
-    Object = models.OneToOneField(Object, on_delete=models.CASCADE, related_name='contracts')
+    object = models.OneToOneField(Object, on_delete=models.CASCADE, related_name='contracts')
     contract_number = models.CharField(max_length=200)
     contract_date = models.DateField()
     description = models.TextField()
@@ -101,8 +101,8 @@ class Species(models.Model):
     life_form = ForeignKey(LifeForm, on_delete=models.CASCADE, related_name='species')
     possible_planting_period_from = models.DateField()
     possible_planting_period_to = models.DateField()
-    flowering_period_from = models.DateField()
-    flowering_period_to = models.DateField()
+    flowering_period_from = models.TimeField()
+    flowering_period_to = models.TimeField()
     special_characteristics = models.TextField()
 
     @property
@@ -123,6 +123,37 @@ class PlantWateringSchedule(models.Model):
     water_norm_liters_summer = models.IntegerField()
     water_norm_liters_fall = models.IntegerField()
     water_norm_liters_spring = models.IntegerField()
+
+    @property
+    def current_water_norm_liters(self):
+        seasons = {
+            'winter': (12, 1, 2),
+            'spring': (3, 4, 5),
+            'summer': (6, 7, 8),
+            'fall': (9, 10, 11)
+        }
+
+        water_norm_liters = None
+        month_now = timezone.now().month
+
+        for season, months in seasons.items():
+            if month_now in months:
+                water_norm_liters = f"water_norm_liters_{season}"
+
+        return water_norm_liters
+
+    @staticmethod
+    def get_season(month=None):
+        seasons = {
+            'winter': (12, 1, 2),
+            'spring': (3, 4, 5),
+            'summer': (6, 7, 8),
+            'autumn': (9, 10, 11)
+        }
+        for season, months in seasons.items():
+            if month in months:
+                return season
+        return None
 
     @property
     def watering_time_period(self):
