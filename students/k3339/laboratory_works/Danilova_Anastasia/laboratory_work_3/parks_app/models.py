@@ -122,7 +122,7 @@ class PlantWateringSchedule(models.Model):
     water_norm_liters_winter = models.IntegerField()
     water_norm_liters_summer = models.IntegerField()
     water_norm_liters_fall = models.IntegerField()
-    water_norm_liters_summer_spring = models.IntegerField()
+    water_norm_liters_spring = models.IntegerField()
 
     @property
     def watering_time_period(self):

@@ -1,0 +1,56 @@
+# mkdocs.yml
+site_name: Warriors Project Documentation
+site_description: Документация практической работы номер 3
+site_author: Данилова Анастасия
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+
+repo_name: TonikX-ITMO_ICT_WebDevelopment_2025-2026
+repo_url: https://github.com/ndanilova/TonikX-ITMO_ICT_WebDevelopment_2025-2026
+
+nav:
+  - Home: index.md
+  - 'Практическая работа 3.1':
+      - 'Практическое задание 1': practical_3_1_1.md
+      - 'Практическое задание 2': practical_3_1_2.md
+      - 'Практическое задание 3': practical_3_1_3.md
+  - 'Практическая работа 3.2':
+      - 'Практическое задание 1': practical_3_2_1.md
+      - 'Практическое задание 2': practical_3_2_2.md
+  - 'Лабораторная работа 3':
+      - 'Отчет': lab_report.md
+      - 'Диаграмма модели': models.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [warriors_project]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+
