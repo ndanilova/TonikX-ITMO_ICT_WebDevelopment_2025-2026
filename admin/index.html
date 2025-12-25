@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../admin/">
+        <link rel="prev" href="../lab_report/">
       
       
-        <link rel="next" href="../API/">
+        <link rel="next" href="../models/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Диаграмма модели - Warriors Project Documentation</title>
+        <title>Админка - Warriors Project Documentation</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Диаграмма модели
+              Админка
             
           </span>
         </div>
@@ -723,34 +723,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../admin/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Админка
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -768,7 +740,7 @@
   <span class="md-ellipsis">
     
   
-    Диаграмма модели
+    Админка
   
 
     
@@ -786,7 +758,7 @@
   <span class="md-ellipsis">
     
   
-    Диаграмма модели
+    Админка
   
 
     
@@ -813,7 +785,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Схема сущностей
+        Админка
       
     </span>
   </a>
@@ -824,6 +796,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Диаграмма модели
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -948,7 +948,7 @@
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Схема сущностей
+        Админка
       
     </span>
   </a>
@@ -975,10 +975,41 @@
   
 
 
-  <h1>Диаграмма модели</h1>
+  <h1>Админка</h1>
 
-<h2 id="_1">Схема сущностей<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><img alt="diagram" src="../park.drawio.png" /></p>
+<h2 id="_1">Админка<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Регистрируем сущности в админке так, чтобы можно было использовать фильтры и поиск для более удобного доступа:</p>
+<div class="highlight"><span class="filename">parks_app/admin.py</span><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib</span><span class="w"> </span><span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Services</span><span class="p">,</span> <span class="n">Enterprise</span><span class="p">,</span> <span class="n">Object</span><span class="p">,</span> <span class="n">Contract</span><span class="p">,</span> <span class="n">Decorator</span><span class="p">,</span> <span class="n">ObjectZone</span><span class="p">,</span> <span class="n">Plant</span><span class="p">,</span> \
+    <span class="n">PlantPlacement</span><span class="p">,</span> <span class="n">LifeForm</span><span class="p">,</span> <span class="n">Species</span><span class="p">,</span> <span class="n">PlantWateringSchedule</span><span class="p">,</span> <span class="n">Worker</span><span class="p">,</span> <span class="n">PlantWorkerAssignment</span><span class="p">,</span> <span class="n">ObjectWorkerAssignment</span>
+
+
+<span class="c1"># Register your models here.</span>
+
+<span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Services</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ServicesAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,)</span>
+
+
+<span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Enterprise</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnterpriseAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;legal_address&quot;</span><span class="p">,</span> <span class="s2">&quot;ogrn&quot;</span><span class="p">)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;legal_address&quot;</span><span class="p">,</span> <span class="s2">&quot;ogrn&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Object</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ObjectAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;is_serviced&quot;</span><span class="p">)</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;is_serviced&quot;</span><span class="p">,)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,)</span>
+
+    <span class="o">....</span>
+</code></pre></div>
+<p>После создаем суперюзера и заходим в админку:</p>
+<p><img alt="img_9.png" src="../images/img_9.png" /></p>
+<p>Далее можно заметить, что фильтрация и поиск действительно работают в классах, для которых это прописано:</p>
+<p><img alt="img_10.png" src="../images/img_10.png" /></p>
 
 
 
